@@ -5,6 +5,7 @@ import 'reset_password.dart';
 import 'signup_screen.dart';
 import 'color_utils.dart';
 import 'package:flutter/material.dart';
+import 'navbar.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -34,11 +35,11 @@ class _SignInScreenState extends State<SignInScreen> {
                 20, MediaQuery.of(context).size.height * 0.2, 20, 0),
             child: Column(
               children: <Widget>[
-                logoWidget("assets/images/logo1.png"),
+                logoWidget("assets/kisan_helper.jpg"),
                 const SizedBox(
                   height: 30,
                 ),
-                reusableTextField("Enter UserName", Icons.person_outline, false,
+                reusableTextField("Enter Email Id", Icons.person_outline, false,
                     _emailTextController),
                 const SizedBox(
                   height: 20,
@@ -52,11 +53,13 @@ class _SignInScreenState extends State<SignInScreen> {
                 firebaseUIButton(context, "Sign In", () {
                   FirebaseAuth.instance
                       .signInWithEmailAndPassword(
-                          email: _emailTextController.text,
-                          password: _passwordTextController.text)
+                          email: _emailTextController.text.trim(),
+                          password: _passwordTextController.text.trim())
                       .then((value) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => KisanRakshak()));
                   }).onError((error, stackTrace) {
                     print("Error ${error.toString()}");
                   });

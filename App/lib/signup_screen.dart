@@ -3,6 +3,7 @@ import 'reusable_widget.dart';
 import 'home_screen.dart';
 import 'color_utils.dart';
 import 'package:flutter/material.dart';
+import 'navbar.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -62,12 +63,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 firebaseUIButton(context, "Sign Up", () {
                   FirebaseAuth.instance
                       .createUserWithEmailAndPassword(
-                          email: _emailTextController.text,
-                          password: _passwordTextController.text)
+                          email: _emailTextController.text.trim(),
+                          password: _passwordTextController.text.trim())
                       .then((value) {
                     print("Created New Account");
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => KisanRakshak()));
                   }).onError((error, stackTrace) {
                     print("Error ${error.toString()}");
                   });
